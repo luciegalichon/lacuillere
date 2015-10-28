@@ -19,9 +19,9 @@ class RestaurantsController < ApplicationController
 
 
   def create
-    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant = Restaurant.new(valid_attributes)
     if @restaurant.save
-      redirect_to restaurant_path
+      redirect_to restaurant_path(@restaurant)
     else
       render :new
     end
@@ -45,10 +45,10 @@ class RestaurantsController < ApplicationController
   # DELETE /restaurants/1.json
   def destroy
     @restaurant.destroy
-    respond_to do |format|
-      format.html { redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
@@ -58,7 +58,7 @@ class RestaurantsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :phone_number, :category)
+    def valid_attributes
+      params.require(:restaurant).permit( :name, :address, :phone_number, :category)
     end
 end
