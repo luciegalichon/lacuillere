@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
-  get 'restaurants/name'
+  resources :restaurants, only: [:index, :show, :new, :create, :edit]
 
-  get 'restaurants/address'
-
-  get 'restaurants/phone_number'
-
-  get 'restaurants/category'
-
+  namespace :admin do
+    resources :restaurants, only: [:update, :destroy]
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
